@@ -6,7 +6,9 @@ public class TimerLogic
     private int _intMin;
 
     
-    public void TimerTime(int minutes)
+
+
+    public TimerLogic(int minutes)
     {
         _intMin = minutes;
         _intSec = 0;
@@ -36,7 +38,12 @@ public class TimerLogic
 
     public string GetFormattedString()
     {
+        return  _intMin.ToString().PadLeft(1, '0') + " " + "Minute(s) left";
+    }
+    
+    public string GetTime()
+    {
         return  _intMin.ToString().PadLeft(2, '0') + ":" +
-               _intSec.ToString().PadLeft(2, '0') + "Minutes left";
+                _intSec.ToString().PadLeft(2, '0');
     }
 }

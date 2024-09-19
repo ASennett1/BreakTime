@@ -1,18 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="BreakTime.MainPage">
+             x:Class="BreakTime.MainPage" x:Name="ftnMain">
 
     <ScrollView>
         <VerticalStackLayout
             Spacing="25"
             Padding="30,0">
-
+            
+            <Label x:Name="lblTimer" FontSize="Title" Padding="0,60" HorizontalOptions="Center"/>
             <Label x:Name="lblDisplay" Text="3 Minutes Left" FontSize="Title" Padding="0,60" HorizontalOptions="Center"/>
             
             <Button Text="Take 5" Clicked="btnFive_OnClicked"/>
-            <Button Text="Take 10" />
-            <Button Text="Take 15" />
+            <Button Text="Take 10" Clicked="btnTen_OnClicked"/>
+            <Button Text="Take 15"  Clicked="btnFifteen_OnClicked"/>
 
         </VerticalStackLayout>
     </ScrollView>
