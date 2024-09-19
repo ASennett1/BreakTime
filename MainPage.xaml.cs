@@ -8,7 +8,7 @@ public partial class MainPage : ContentPage
     private bool _isTimerRunning;
     private bool _redBackground;
     private bool _alternateBackground;
-    
+    private CancellationTokenSource _cancelTokenSource;
     
 
     public MainPage()
@@ -17,12 +17,16 @@ public partial class MainPage : ContentPage
         _isTimerRunning = false;
         _redBackground = false;
         _alternateBackground = false;
-        
+        _cancelTokenSource = new CancellationTokenSource();
+
     }
 
     private void ToggleBackground()
     {
+        
+        
         _alternateBackground = true;
+        
         Device.StartTimer(TimeSpan.FromMilliseconds(500), () =>
         {
             if (_alternateBackground)
@@ -47,68 +51,79 @@ public partial class MainPage : ContentPage
 
     private void StartTimer(int minutes)
     {
-        if (_isTimerRunning)
-        {
-            _isTimerRunning = false;
-        }
-        _breakTime = new TimerLogic(minutes);
-        lblTimer.Text = _breakTime.GetTime();
-        lblDisplay.Text = _breakTime.GetFormattedString();
+        var token = _cancelTokenSource.Token;
+        
+        
+        
+         _breakTime = new TimerLogic(minutes);
+         //lblTimer.Text = _breakTime.GetTime();
+         lblDisplay.Text = _breakTime.GetFormattedString();
 
-        _isTimerRunning = true;
+         
 
        
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                if (!_isTimerRunning)
+                if (token.IsCancellationRequested)
                 {
                     return false;
                 }
                 
+                
                 if (!_breakTime.SetTickCount())
                 {
                     lblDisplay.Text = "Time's up!";
-                    _isTimerRunning = false;
+                    
                     ToggleBackground();
                     return false;
                 }
                 else
                 {
-                    lblTimer.Text = _breakTime.GetTime();
+                    //lblTimer.Text = _breakTime.GetTime();
                     lblDisplay.Text = _breakTime.GetFormattedString();
                     return true;
                 }
             });
-        
+       
     }
 
+    private void StopTimer()
+    {
+        _cancelTokenSource.Cancel();
+        _cancelTokenSource.Dispose();
+        _cancelTokenSource = new CancellationTokenSource();
+        _isTimerRunning = false;
+    }
     private void btnFive_OnClicked(object sender, EventArgs e)
     {
         _isTimerRunning = false;
-        StartTimer(1);
+        StopTimer();
         _alternateBackground = false;
         _redBackground = false;
         ftnMain.Background = Colors.White;
+        StartTimer(1);
         
     }
 
     private void btnTen_OnClicked(object sender, EventArgs e)
     {
         _isTimerRunning = false;
-        StartTimer(10);
+        StopTimer();
         _alternateBackground = false;
         _redBackground = false;
         ftnMain.Background = Colors.White;
+        StartTimer(10);
         
     }
 
     private void btnFifteen_OnClicked(object sender, EventArgs e)
     {
         _isTimerRunning = false;
-        StartTimer(15);
+        StopTimer();
         _alternateBackground = false;
         _redBackground = false;
         ftnMain.Background = Colors.White;
+        StartTimer(15);
         
     }
 }

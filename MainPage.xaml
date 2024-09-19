@@ -8,8 +8,8 @@
             Spacing="25"
             Padding="30,0">
             
-            <Label x:Name="lblTimer" FontSize="Title" Padding="0,60" HorizontalOptions="Center"/>
-            <Label x:Name="lblDisplay" Text="3 Minutes Left" FontSize="Title" Padding="0,60" HorizontalOptions="Center"/>
+            <!--<Label x:Name="lblTimer" FontSize="Title" Padding="0,60" HorizontalOptions="Center"/>-->
+            <Label x:Name="lblDisplay" Text="Pick a time duration" FontSize="Title" Padding="0,60" HorizontalOptions="Center"/>
             
             <Button Text="Take 5" Clicked="btnFive_OnClicked"/>
             <Button Text="Take 10" Clicked="btnTen_OnClicked"/>
